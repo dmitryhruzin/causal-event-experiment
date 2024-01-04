@@ -4,7 +4,8 @@ class ClientNotifier {
   }
 
   async handle(event) {
-    console.log('ClientNotifier handle', event)
+    console.log('ClientNotifier handle', event.patient)
+    console.log('ClientNotifier handle', event.hospitalization)
   }
 }
 

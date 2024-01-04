@@ -1,6 +1,7 @@
 const {
   HospitalizationCreated,
   PatientCreated,
+  PatientAndHospitalizationCreated,
 } = require("../events");
 
 class CreatePatientCommandHandler {
@@ -16,6 +17,10 @@ class CreatePatientCommandHandler {
     const events = [
       new PatientCreated({ name: patient.name }),
       new HospitalizationCreated({ name: patient.hospitalization.name }),
+      new PatientAndHospitalizationCreated({
+        patient: { name: patient.name },
+        hospitalization: { name: patient.hospitalization.name },
+      }),
     ]
 
     this.eventBus.dispatch(events)
