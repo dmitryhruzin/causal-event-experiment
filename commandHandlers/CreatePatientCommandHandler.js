@@ -18,9 +18,7 @@ class CreatePatientCommandHandler {
       new HospitalizationCreated({ name: patient.hospitalization.name }),
     ]
 
-    events.forEach((event) => {
-      this.eventBus.dispatch(event)
-    })
+    this.eventBus.dispatch(events)
 
     return 'Acknowledgement OK'
   }

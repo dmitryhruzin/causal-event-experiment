@@ -10,9 +10,10 @@ class EventBus {
     this.eventHandlers[eventName].push(handler)
   }
 
-  async dispatch(event) {
-    await new Promise(r => setTimeout(r, Math.random() * 1000));
-    this.eventHandlers[event.constructor.name].forEach(handler => handler.handle(event))
+  async dispatch(events) {
+    events.forEach(event => {
+      this.eventHandlers[event.constructor.name].forEach(handler => handler.handle(event))
+    })
   }
 }
 
