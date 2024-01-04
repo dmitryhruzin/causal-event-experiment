@@ -3,7 +3,7 @@ class HospitalizationCreatedEventHandler {
     this.repo = repo
   }
 
-  handle() {
+  handle(event) {
     console.log('HospitalizationCreatedEventHandler handle')
   }
 }
