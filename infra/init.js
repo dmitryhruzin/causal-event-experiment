@@ -1,7 +1,14 @@
 const { CreatePatientCommand } = require('../commands')
 const { CreatePatientCommandHandler } = require('../commandHandlers')
-const { HospitalizationCreated, PatientCreated } = require('../events')
-const { ClientNotifier, HospitalizationCreatedEventHandler, PatientCreatedEventHandler } = require('../eventHandlers')
+const {
+  HospitalizationCreated,
+  PatientCreated,
+} = require('../events')
+const {
+  ClientNotifier,
+  HospitalizationCreatedEventHandler,
+  PatientCreatedEventHandler,
+} = require('../eventHandlers')
 const CommandBus = require('./commandBus')
 const EventBus = require('./eventBus')
 
