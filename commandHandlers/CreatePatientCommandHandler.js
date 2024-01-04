@@ -1,4 +1,7 @@
-const {HospitalizationCreated, PatientCreated} = require("../events");
+const {
+  HospitalizationCreated,
+  PatientCreated,
+} = require("../events");
 
 class CreatePatientCommandHandler {
   constructor(repo, eventBus) {
