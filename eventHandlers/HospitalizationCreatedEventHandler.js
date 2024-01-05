@@ -1,10 +1,19 @@
-class HospitalizationCreatedEventHandler {
+const BaseEventHandler = require('./BaseEventHandler')
+
+class HospitalizationCreatedEventHandler extends BaseEventHandler {
   constructor(repo) {
+    const eventTypes = ['HospitalizationCreated']
+    super({ eventTypes })
+
     this.repo = repo
   }
 
-  handle(event) {
-    console.log('HospitalizationCreatedEventHandler handle')
+  handle(groupEvents) {
+    const events = this.unpackContainer(groupEvents)
+
+    for (const event of events) {
+      console.log('HospitalizationCreatedEventHandler handle')
+    }
   }
 }
 
