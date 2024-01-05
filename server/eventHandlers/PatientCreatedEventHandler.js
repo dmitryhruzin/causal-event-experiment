@@ -12,7 +12,7 @@ class PatientCreatedEventHandler extends BaseEventHandler {
     const events = this.unpackContainer(groupEvents)
 
     for (const event of events) {
-      console.log('PatientCreatedEventHandler handle')
+      console.log('PatientCreatedEventHandler handle', events)
     }
   }
 }

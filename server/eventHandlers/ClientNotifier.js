@@ -11,7 +11,9 @@ class ClientNotifier extends BaseEventHandler {
 
   async handle(groupEvents) {
     const events = this.unpackContainer(groupEvents)
-
+    
+    console.log('ClientNotifier handle', events)
+    
     for (const event of events) {
       socket.io.emit(event.constructor.name, event);
     }
