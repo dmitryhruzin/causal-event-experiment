@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
-const init = require('./infra/init')
+const Registrator = require('./infra/registrator')
 
 var app = express();
 
@@ -19,7 +19,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(init)
+
+const registrator = new Registrator()
+registrator.register()
+app.use(function(req, res, next) {
+  req.commanBus = registrator.commandBus
+
+  next()
+})
 
 app.use('/', indexRouter);
 
