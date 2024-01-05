@@ -3,8 +3,6 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const socketIO = require('socket.io');
-const http = require('http')
 
 const indexRouter = require('./routes/index');
 const Registrator = require('./infra/registrator')
@@ -46,10 +44,5 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.status(500).send(err);
 });
-
-const io = socketIO(http.createServer(app))
-io.on('connection', (socket) => {
-  console.log('client is connected', socket)
-})
 
 module.exports = app;
