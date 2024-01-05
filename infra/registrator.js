@@ -40,14 +40,4 @@ class Registrator {
   }
 }
 
-const registrator = new Registrator()
-
-module.exports = function(req, res, next) {
-  if (!registrator.commandBus) {
-    console.log('Register')
-    registrator.register()
-  }
-  req.commanBus = registrator.commandBus
-
-  next()
-}
+module.exports = Registrator
