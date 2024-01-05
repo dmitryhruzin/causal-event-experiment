@@ -1,3 +1,6 @@
+const Queue = require('sync-queue')
+const queue = new Queue()
+
 class EventBus {
   constructor() {
     this.eventHandlers = {}
@@ -13,7 +16,10 @@ class EventBus {
   async dispatch(events) {
     events.forEach(event => {
       this.eventHandlers[event.constructor.name].forEach(handler => {
-        setTimeout(() => handler.handle(event), Math.random() * 1000);
+        queue.place(() => setTimeout(() => {
+          handler.handle(event)
+          queue.next()
+        }, Math.random() * 1000));
       })
     })
   }
