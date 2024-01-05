@@ -16,21 +16,21 @@ export default function App() {
       setIsConnected(false);
     }
 
-    function onFooEvent(value) {
+    function handleEvent(value) {
       console.log('value', value)
       setFooEvents(previous => [...previous, value]);
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('HospitalizationCreated', onFooEvent);
-    socket.on('PatientCreated', onFooEvent);
+    socket.on('HospitalizationCreated', handleEvent);
+    socket.on('PatientCreated', handleEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('HospitalizationCreated', onFooEvent);
-      socket.off('PatientCreated', onFooEvent);
+      socket.off('HospitalizationCreated', handleEvent);
+      socket.off('PatientCreated', handleEvent);
     };
   }, []);
 
