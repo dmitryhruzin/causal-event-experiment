@@ -5,7 +5,7 @@ const socket = io('http://localhost:8000');
 
 export default function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
-  const [fooEvents, setFooEvents] = useState([]);
+  const [events, setEvents] = useState([]);
 
   useEffect(() => {
     function onConnect() {
@@ -18,7 +18,7 @@ export default function App() {
 
     function handleEvent(value) {
       console.log('value', value)
-      setFooEvents(previous => [...previous, value]);
+      setEvents(previous => [...previous, value]);
     }
 
     socket.on('connect', onConnect);
@@ -37,7 +37,7 @@ export default function App() {
   return (
     <div className="App">
       <div>Connected: { isConnected.toString() }</div>
-      <div>Events: { fooEvents.map(e => <div>{e.name}</div>) }</div>
+      <div>Events: { events.map(e => <div>{e.name}</div>) }</div>
     </div>
   );
 }
