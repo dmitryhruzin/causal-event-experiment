@@ -7,7 +7,6 @@ class ClientNotifier {
 
   async handle(event) {
     console.log('ClientNotifier handle', event)
-    console.log('io', socket)
     socket.io.emit(event.constructor.name, event);
   }
 }

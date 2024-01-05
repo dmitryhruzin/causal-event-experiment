@@ -4,7 +4,7 @@ class HospitalizationCreatedEventHandler {
   }
 
   handle(event) {
-    console.log('HospitalizationCreatedEventHandler handle')
+    console.log('HospitalizationCreatedEventHandler handle', event)
   }
 }
 

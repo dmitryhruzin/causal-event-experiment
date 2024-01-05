@@ -32,9 +32,6 @@ export default function App() {
     };
   }, []);
 
-  console.log('isConnected', isConnected)
-  console.log('fooEvents', fooEvents)
-
   return (
     <div className="App">
       <div>Connected: { isConnected.toString() }</div>
