@@ -1,4 +1,5 @@
 const BaseEventHandler = require('./BaseEventHandler')
+const { socket } = require('../socket')
 
 class ClientNotifier extends BaseEventHandler {
   constructor(repo) {
@@ -12,7 +13,7 @@ class ClientNotifier extends BaseEventHandler {
     const events = this.unpackContainer(groupEvents)
 
     for (const event of events) {
-      console.log('ClientNotifier handle', event)
+      socket.io.emit(event.constructor.name, event);
     }
   }
 }
