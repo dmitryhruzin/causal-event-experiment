@@ -12,6 +12,7 @@ const {
   PatientAndHospitalizationCreated,
   DoctorCreated,
   DoctorProfileCreated,
+  DoctorAndDoctorProfileCreated,
 } = require('../events')
 const {
   ClientNotifier,
@@ -20,6 +21,7 @@ const {
   PatientAndHospitalizationCreatedEventHandler,
   DoctorCreatedEventHandler,
   DoctorProfileCreatedEventHandler,
+  DoctorAndDoctorProfileCreatedEventHandler,
 } = require('../eventHandlers')
 const CommandBus = require('./commandBus')
 const EventBus = require('./eventBus')
@@ -39,12 +41,15 @@ class Registrator {
     this.eventBus.registerHandler(PatientCreated.prototype.constructor.name, patientCreatedEventHandler)
     const clientNotifier = new ClientNotifier()
     this.eventBus.registerHandler(PatientAndHospitalizationCreated.prototype.constructor.name, clientNotifier)
+    this.eventBus.registerHandler(DoctorAndDoctorProfileCreated.prototype.constructor.name, clientNotifier)
     const patientAndHospitalizationCreatedEventHandler = new PatientAndHospitalizationCreatedEventHandler()
     this.eventBus.registerHandler(PatientAndHospitalizationCreated.prototype.constructor.name, patientAndHospitalizationCreatedEventHandler)
     const doctorCreatedEventHandler = new DoctorCreatedEventHandler()
     this.eventBus.registerHandler(DoctorCreated.prototype.constructor.name, doctorCreatedEventHandler)
     const doctorProfileCreatedEventHandler = new DoctorProfileCreatedEventHandler()
     this.eventBus.registerHandler(DoctorProfileCreated.prototype.constructor.name, doctorProfileCreatedEventHandler)
+    const doctorAndDoctorProfileCreatedEventHandler = new DoctorAndDoctorProfileCreatedEventHandler()
+    this.eventBus.registerHandler(DoctorAndDoctorProfileCreated.prototype.constructor.name, doctorAndDoctorProfileCreatedEventHandler)
 
     // Commands
     this.commandBus = new CommandBus()

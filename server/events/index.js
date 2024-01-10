@@ -3,6 +3,7 @@ const PatientCreated = require('./PatientCreated')
 const PatientAndHospitalizationCreated = require('./PatientAndHospitalizationCreated')
 const DoctorCreated = require('./DoctorCreated')
 const DoctorProfileCreated = require('./DoctorProfileCreated')
+const DoctorAndDoctorProfileCreated = require('./DoctorAndDoctorProfileCreated')
 
 module.exports = {
   HospitalizationCreated,
@@ -10,4 +11,5 @@ module.exports = {
   PatientAndHospitalizationCreated,
   DoctorCreated,
   DoctorProfileCreated,
+  DoctorAndDoctorProfileCreated,
 }
