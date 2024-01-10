@@ -9,6 +9,8 @@ const {
 const {
   HospitalizationCreated,
   PatientCreated,
+  DoctorCreated,
+  DoctorProfileCreated,
   PatientAndHospitalizationCreated,
   DoctorCreated,
   DoctorProfileCreated,
@@ -18,6 +20,8 @@ const {
   ClientNotifier,
   HospitalizationCreatedEventHandler,
   PatientCreatedEventHandler,
+  DoctorCreatedEventHandler,
+  DoctorProfileCreatedEventHandler,
   PatientAndHospitalizationCreatedEventHandler,
   DoctorCreatedEventHandler,
   DoctorProfileCreatedEventHandler,
@@ -42,6 +46,10 @@ class Registrator {
     const clientNotifier = new ClientNotifier()
     this.eventBus.registerHandler(PatientAndHospitalizationCreated.prototype.constructor.name, clientNotifier)
     this.eventBus.registerHandler(DoctorAndDoctorProfileCreated.prototype.constructor.name, clientNotifier)
+    const doctorCreatedEventHandler = new DoctorCreatedEventHandler()
+    this.eventBus.registerHandler(DoctorCreated.prototype.constructor.name, doctorCreatedEventHandler)
+    const doctorProfileCreatedEventHandler = new DoctorProfileCreatedEventHandler()
+    this.eventBus.registerHandler(DoctorProfileCreated.prototype.constructor.name, doctorProfileCreatedEventHandler)
     const patientAndHospitalizationCreatedEventHandler = new PatientAndHospitalizationCreatedEventHandler()
     this.eventBus.registerHandler(PatientAndHospitalizationCreated.prototype.constructor.name, patientAndHospitalizationCreatedEventHandler)
     const doctorCreatedEventHandler = new DoctorCreatedEventHandler()
