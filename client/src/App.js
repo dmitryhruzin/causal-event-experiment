@@ -18,7 +18,11 @@ export default function App() {
 
     function handleEvent(value) {
       console.log('value', value)
-      setEvents(previous => [...previous, value]);
+      if (value.name) {
+        setEvents(previous => [...previous, value]);
+      } else {
+        setEvents(previous => [...previous, ...Object.values(value)]);
+      }
     }
 
     socket.on('connect', onConnect);
@@ -27,6 +31,7 @@ export default function App() {
     socket.on('PatientCreated', handleEvent);
     socket.on('DoctorCreated', handleEvent);
     socket.on('DoctorProfileCreated', handleEvent);
+    socket.on('PatientAndHospitalizationCreated', handleEvent);
 
     return () => {
       socket.off('connect', onConnect);
@@ -35,6 +40,7 @@ export default function App() {
       socket.off('PatientCreated', handleEvent);
       socket.off('DoctorCreated', handleEvent);
       socket.off('DoctorProfileCreated', handleEvent);
+      socket.off('PatientAndHospitalizationCreated', handleEvent);
     };
   }, []);
 
