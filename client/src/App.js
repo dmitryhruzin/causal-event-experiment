@@ -39,20 +39,42 @@ export default function App() {
       }
     }
 
+    function handleDoctorProfileCreatedEvent(value) {
+      console.log('value', value)
+      const doctorCreatedEvent = tempEvents.find((e) => e.title === 'DoctorCreated')
+      if (doctorCreatedEvent) {
+        setEvents(previous => [...previous, doctorCreatedEvent.value, value]);
+        tempEvents.pop()
+      } else {
+        tempEvents.push({ title: 'DoctorProfileCreated', value })
+      }
+    }
+
+    function handleDoctorCreatedEvent(value) {
+      console.log('value', value)
+      const doctorProfileCreatedEvent = tempEvents.find((e) => e.title === 'DoctorProfileCreated')
+      if (doctorProfileCreatedEvent) {
+        setEvents(previous => [...previous, value, doctorProfileCreatedEvent.value]);
+        tempEvents.pop()
+      } else {
+        tempEvents.push({ title: 'DoctorCreated', value })
+      }
+    }
+
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('HospitalizationCreated', handleHospitalizationCreatedEvent);
     socket.on('PatientCreated', handlePatientCreatedEvent);
-    socket.on('DoctorCreated', handleEvent);
-    socket.on('DoctorProfileCreated', handleEvent);
+    socket.on('DoctorCreated', handleDoctorCreatedEvent);
+    socket.on('DoctorProfileCreated', handleDoctorProfileCreatedEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('HospitalizationCreated', handleHospitalizationCreatedEvent);
       socket.off('PatientCreated', handlePatientCreatedEvent);
-      socket.off('DoctorCreated', handleEvent);
-      socket.off('DoctorProfileCreated', handleEvent);
+      socket.off('DoctorCreated', handleDoctorCreatedEvent);
+      socket.off('DoctorProfileCreated', handleDoctorProfileCreatedEvent);
     };
   }, []);
 
