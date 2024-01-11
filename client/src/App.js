@@ -43,12 +43,16 @@ export default function App() {
     socket.on('disconnect', onDisconnect);
     socket.on('HospitalizationCreated', handleHospitalizationCreatedEvent);
     socket.on('PatientCreated', handlePatientCreatedEvent);
+    socket.on('DoctorCreated', handleEvent);
+    socket.on('DoctorProfileCreated', handleEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('HospitalizationCreated', handleHospitalizationCreatedEvent);
       socket.off('PatientCreated', handlePatientCreatedEvent);
+      socket.off('DoctorCreated', handleEvent);
+      socket.off('DoctorProfileCreated', handleEvent);
     };
   }, []);
 
