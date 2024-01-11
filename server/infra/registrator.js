@@ -1,13 +1,23 @@
-const { CreatePatientCommand } = require('../commands')
-const { CreatePatientCommandHandler } = require('../commandHandlers')
+const {
+  CreatePatientCommand,
+  CreateDoctorCommand,
+} = require('../commands')
+const {
+  CreatePatientCommandHandler,
+  CreateDoctorCommandHandler,
+} = require('../commandHandlers')
 const {
   HospitalizationCreated,
   PatientCreated,
+  DoctorCreated,
+  DoctorProfileCreated,
 } = require('../events')
 const {
   ClientNotifier,
   HospitalizationCreatedEventHandler,
   PatientCreatedEventHandler,
+  DoctorCreatedEventHandler,
+  DoctorProfileCreatedEventHandler,
 } = require('../eventHandlers')
 const CommandBus = require('./commandBus')
 const EventBus = require('./eventBus')
@@ -28,12 +38,20 @@ class Registrator {
     const clientNotifier = new ClientNotifier()
     this.eventBus.registerHandler(PatientCreated.prototype.constructor.name, clientNotifier)
     this.eventBus.registerHandler(HospitalizationCreated.prototype.constructor.name, clientNotifier)
+    this.eventBus.registerHandler(DoctorCreated.prototype.constructor.name, clientNotifier)
+    this.eventBus.registerHandler(DoctorProfileCreated.prototype.constructor.name, clientNotifier)
+    const doctorCreatedEventHandler = new DoctorCreatedEventHandler()
+    this.eventBus.registerHandler(DoctorCreated.prototype.constructor.name, doctorCreatedEventHandler)
+    const doctorProfileCreatedEventHandler = new DoctorProfileCreatedEventHandler()
+    this.eventBus.registerHandler(DoctorProfileCreated.prototype.constructor.name, doctorProfileCreatedEventHandler)
 
     // Commands
     this.commandBus = new CommandBus()
 
     const createPatientCommandHandler = new CreatePatientCommandHandler(this.repo, this.eventBus)
     this.commandBus.registerHandler(CreatePatientCommand.prototype.constructor.name, createPatientCommandHandler)
+    const createDoctorCommandHandler = new CreateDoctorCommandHandler(this.repo, this.eventBus)
+    this.commandBus.registerHandler(CreateDoctorCommand.prototype.constructor.name, createDoctorCommandHandler)
   }
 }
 
