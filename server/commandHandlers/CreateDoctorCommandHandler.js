@@ -1,6 +1,7 @@
 const {
   DoctorCreated,
   DoctorProfileCreated,
+  DoctorAndDoctorProfileCreated,
 } = require("../events");
 
 class CreateDoctorCommandHandler {
@@ -16,6 +17,10 @@ class CreateDoctorCommandHandler {
     const events = [
       new DoctorCreated({ name: doctor.name }),
       new DoctorProfileCreated({ name: doctor.profile.name }),
+      new DoctorAndDoctorProfileCreated({
+        doctor: { name: doctor.name },
+        doctorProfile: { name: doctor.profile.name },
+      }),
     ]
 
     this.eventBus.dispatch(events)

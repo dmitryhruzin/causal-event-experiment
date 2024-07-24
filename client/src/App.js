@@ -32,6 +32,7 @@ export default function App() {
     socket.on('DoctorCreated', handleEvent);
     socket.on('DoctorProfileCreated', handleEvent);
     socket.on('PatientAndHospitalizationCreated', handleEvent);
+    socket.on('DoctorAndDoctorProfileCreated', handleEvent);
 
     return () => {
       socket.off('connect', onConnect);
@@ -41,6 +42,7 @@ export default function App() {
       socket.off('DoctorCreated', handleEvent);
       socket.off('DoctorProfileCreated', handleEvent);
       socket.off('PatientAndHospitalizationCreated', handleEvent);
+      socket.off('DoctorAndDoctorProfileCreated', handleEvent);
     };
   }, []);
 

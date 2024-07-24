@@ -4,6 +4,7 @@ const DoctorCreatedEventHandler = require('./DoctorCreatedEventHandler')
 const DoctorProfileCreatedEventHandler = require('./DoctorProfileCreatedEventHandler')
 const ClientNotifier = require('./ClientNotifier')
 const PatientAndHospitalizationCreatedEventHandler = require('./PatientAndHospitalizationCreatedEventHandler')
+const DoctorAndDoctorProfileCreatedEventHandler = require('./DoctorAndDoctorProfileCreatedEventHandler')
 
 module.exports = {
   HospitalizationCreatedEventHandler,
@@ -12,4 +13,5 @@ module.exports = {
   DoctorProfileCreatedEventHandler,
   ClientNotifier,
   PatientAndHospitalizationCreatedEventHandler,
+  DoctorAndDoctorProfileCreatedEventHandler,
 }
