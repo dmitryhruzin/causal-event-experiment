@@ -18,7 +18,7 @@ class CreateDoctorCommandHandler {
       new DoctorProfileCreated({ name: doctor.profile.name }),
     ]
 
-    this.eventBus.dispatch(events)
+    this.eventBus.dispatch({ title: 'CreateDoctorGroupEvents', events })
 
     return 'Acknowledgement OK'
   }
