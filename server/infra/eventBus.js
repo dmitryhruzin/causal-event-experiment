@@ -10,11 +10,13 @@ class EventBus {
     this.eventHandlers[eventName].push(handler)
   }
 
-  async dispatch(events) {
-    events.forEach(event => {
-      this.eventHandlers[event.constructor.name].forEach(handler => {
-        setTimeout(() => handler.handle(event), Math.random() * 1000);
-      })
+  async dispatch(groupEvents) {
+    const eventHandlers = groupEvents.events
+      .map(event => this.eventHandlers[event.constructor.name])
+      .flat()
+    const handlersToRun = [...new Set(eventHandlers)]
+    handlersToRun.forEach(handler => {
+      setTimeout(() => handler.handle(groupEvents), Math.random() * 1000);
     })
   }
 }
