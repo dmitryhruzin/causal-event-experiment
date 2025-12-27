@@ -6,6 +6,7 @@ const socket = io('http://localhost:8000');
 export default function App() {
   const [isConnected, setIsConnected] = useState(socket.connected);
   const [events, setEvents] = useState([]);
+  const tempEvents = [];
 
   useEffect(() => {
     function onConnect() {
@@ -16,21 +17,38 @@ export default function App() {
       setIsConnected(false);
     }
 
-    function handleEvent(value) {
+    function handleHospitalizationCreatedEvent(value) {
       console.log('value', value)
-      setEvents(previous => [...previous, value]);
+      const patientCreatedEvent = tempEvents.find((e) => e.title === 'PatientCreated')
+      if (patientCreatedEvent) {
+        setEvents(previous => [...previous, patientCreatedEvent.value, value]);
+        tempEvents.pop()
+      } else {
+        tempEvents.push({ title: 'HospitalizationCreated', value })
+      }
+    }
+
+    function handlePatientCreatedEvent(value) {
+      console.log('value', value)
+      const hospitalizationCreatedEvent = tempEvents.find((e) => e.title === 'HospitalizationCreated')
+      if (hospitalizationCreatedEvent) {
+        setEvents(previous => [...previous, value, hospitalizationCreatedEvent.value]);
+        tempEvents.pop()
+      } else {
+        tempEvents.push({ title: 'PatientCreated', value })
+      }
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
-    socket.on('HospitalizationCreated', handleEvent);
-    socket.on('PatientCreated', handleEvent);
+    socket.on('HospitalizationCreated', handleHospitalizationCreatedEvent);
+    socket.on('PatientCreated', handlePatientCreatedEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
-      socket.off('HospitalizationCreated', handleEvent);
-      socket.off('PatientCreated', handleEvent);
+      socket.off('HospitalizationCreated', handleHospitalizationCreatedEvent);
+      socket.off('PatientCreated', handlePatientCreatedEvent);
     };
   }, []);
 
