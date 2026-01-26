@@ -18,19 +18,25 @@ export default function App() {
 
     function handleEvent(value) {
       console.log('value', value)
-      setEvents(previous => [...previous, value]);
+      if (value.name) {
+        setEvents(previous => [...previous, value]);
+      } else {
+        setEvents(previous => [...previous, ...Object.values(value)]);
+      }
     }
 
     socket.on('connect', onConnect);
     socket.on('disconnect', onDisconnect);
     socket.on('HospitalizationCreated', handleEvent);
     socket.on('PatientCreated', handleEvent);
+    socket.on('PatientAndHospitalizationCreated', handleEvent);
 
     return () => {
       socket.off('connect', onConnect);
       socket.off('disconnect', onDisconnect);
       socket.off('HospitalizationCreated', handleEvent);
       socket.off('PatientCreated', handleEvent);
+      socket.off('PatientAndHospitalizationCreated', handleEvent);
     };
   }, []);
 
